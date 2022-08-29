@@ -3,15 +3,17 @@ import requests
 
 
 def get_request():
+    """this function return a list with hero's description in json format"""
     url = 'https://akabab.github.io/superhero-api/api/all.json'
-    response = requests.get(url)
-    return response.json()
+    response = requests.get(url)  # делаем get запрос для получения данных о героях
+    return response.json()  # возвращаем данные в json формате.
 
 
 def get_three_hero_dict(hero_1, hero_2, hero_3):
+    """this function return a dictionary with hero's name and value of intelligence"""
     super_list = get_request()
-    three_dict = {}
-    for hero_info in super_list:
+    three_dict = {}  # создаем пустой словарь для героев
+    for hero_info in super_list:  # идем по json и по ключам выбираем значение интеллект, доб. в словарь
         if hero_info['name'] == hero_1.title():
             hero_1_intelligence = hero_info['powerstats']['intelligence']
             three_dict[hero_info['name']] = hero_1_intelligence
@@ -25,9 +27,10 @@ def get_three_hero_dict(hero_1, hero_2, hero_3):
 
 
 def find_the_smartest(hero_1, hero_2, hero_3):
-    three_hero_dict = get_three_hero_dict(hero_1, hero_2, hero_3)
-    the_smartest = max(three_hero_dict.values())
-    for name, value in three_hero_dict.items():
+    """this function can find the smartest hero from a list"""
+    three_hero_dict = get_three_hero_dict(hero_1, hero_2, hero_3)  # создаем словарь из трех героев.
+    the_smartest = max(three_hero_dict.values())  # функция max для значений словаря (интеллект)
+    for name, value in three_hero_dict.items():  # печатаем самого умного.
         if value == the_smartest:
             return f'Самый умный из троих - {name}. Очки его ума = {value}.'
 
